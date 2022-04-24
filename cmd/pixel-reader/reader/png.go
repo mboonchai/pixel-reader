@@ -65,7 +65,8 @@ func image_2_array_pix_frame(src image.Image) [][][]int64 {
 
 			color := int64(0xFF000000)
 			//TRANSPARENT --> USE BLACK
-			if pix[3] != 0x00 {
+			//NEAR BLACK --> USE BLACK
+			if pix[3] != 0x00 && (pix[0] > 0x33 || pix[1] > 0x33 || pix[2] > 0x33) {
 				color = (int64(pix[3]) << 24) + (int64(pix[0]) << 16) + (int64(pix[1]) << 8) + int64(pix[2])
 			}
 
